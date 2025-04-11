@@ -1,0 +1,217 @@
+﻿<Window x:Class="RestaurantManagement.Views.AttendanceView"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+            xmlns:vm="clr-namespace:RestaurantManagement.ViewModels"
+            d:DataContext="{d:DesignInstance Type=vm:AttendanceViewModel}"
+            Background="{DynamicResource MaterialDesignPaper}"
+            mc:Ignorable="d"
+            Height="720" Width="1080"
+            Title="Attendance Management"
+            FontFamily="Comfortaa"
+            ResizeMode="NoResize"
+            WindowStartupLocation="CenterScreen">
+
+
+    <Grid>
+        <TabControl Width="1060"
+                        Height="Auto"
+                        VerticalAlignment="Top"
+                        Background="#701c1c"
+                        BorderThickness="0">
+
+            
+            <TabItem Header="Chấm công">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="289*"/>
+                        <ColumnDefinition Width="771*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    
+                    <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="0,0,0,1" Padding="10" Grid.ColumnSpan="2">
+                        <Grid HorizontalAlignment="Left">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="170"/>
+                                <ColumnDefinition Width="500"/>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+
+                            
+                            <DockPanel Grid.Column="1" Margin="0,0,10,0" VerticalAlignment="Center">
+                                <materialDesign:PackIcon Kind="Magnify" 
+                                        Width="24" 
+                                        Height="24" 
+                                        VerticalAlignment="Center" 
+                                        Margin="0,0,5,0" 
+                                        DockPanel.Dock="Left" />
+                                <TextBox FontSize="16"
+                                         Height="50"
+                                         materialDesign:HintAssist.Hint="Tìm kiếm nhân viên"
+                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                         Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DockPanel>
+
+                            
+                            <DatePicker Grid.Column="2"
+                                    Margin="5,0,10,0"
+                                    FontSize="16"
+                                    Height="40"
+                                    materialDesign:HintAssist.Hint="Chọn ngày chấm công"
+                                    Style="{StaticResource MaterialDesignDatePicker}"
+                                    SelectedDate="{Binding SelectedDate, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            
+                            <Grid Grid.Column="3">
+                                <Button Height="50" Width="70" 
+                                HorizontalAlignment="Center" 
+                                ToolTip="Lưu" 
+                                Command="{Binding SaveAttendanceCommand}" 
+                                >
+                                    <materialDesign:PackIcon Kind="ContentSaveCheckOutline" Height="40" Width="40"/>
+                                </Button>
+                            </Grid>
+
+                        </Grid>
+                    </Border>
+
+                    <DataGrid Grid.Row="1" ItemsSource="{Binding EmployeeList}" AutoGenerateColumns="False" Grid.ColumnSpan="2" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="150" Header="Mã Nhân Viên" Binding="{Binding MaNhanVien, Mode=OneWay}" />
+                            <DataGridTextColumn Width="250" Header="Họ Tên" Binding="{Binding HoTen, Mode=OneWay}" />
+                            <DataGridTextColumn Width="150" Header="Chức Vụ" Binding="{Binding ChucVu, Mode=OneWay}" />
+                            <DataGridTextColumn Width="100" Header="Giờ Vào" Binding="{Binding GioVao}" />
+                            <DataGridTextColumn Width="100" Header="Giờ Ra" Binding="{Binding GioRa}" />
+                            <DataGridTextColumn Width="150" Header="Ghi Chú" Binding="{Binding GhiChu}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+
+
+                </Grid>
+            </TabItem>
+
+            
+            <TabItem Header="Xem chấm công tháng">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    
+                    <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="0,0,0,1" Padding="10">
+                        <Grid HorizontalAlignment="Left">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="170"/>
+                                <ColumnDefinition Width="500"/>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+
+                            
+                            <ComboBox Grid.Column="0" 
+                                          Width="150" 
+                                          FontSize="15.5" 
+                                          Height="50" 
+                                          Margin="0,0,10,0"
+                                          materialDesign:HintAssist.Hint="Chọn tháng"
+                                          VerticalAlignment="Center"
+                                          Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                          SelectedIndex="{Binding SelectedMonthIndex, Mode=TwoWay}">
+                                <ComboBoxItem>Tháng 1</ComboBoxItem>
+                                <ComboBoxItem>Tháng 2</ComboBoxItem>
+                                <ComboBoxItem>Tháng 3</ComboBoxItem>
+                                <ComboBoxItem>Tháng 4</ComboBoxItem>
+                                <ComboBoxItem>Tháng 5</ComboBoxItem>
+                                <ComboBoxItem>Tháng 6</ComboBoxItem>
+                                <ComboBoxItem>Tháng 7</ComboBoxItem>
+                                <ComboBoxItem>Tháng 8</ComboBoxItem>
+                                <ComboBoxItem>Tháng 9</ComboBoxItem>
+                                <ComboBoxItem>Tháng 10</ComboBoxItem>
+                                <ComboBoxItem>Tháng 11</ComboBoxItem>
+                                <ComboBoxItem>Tháng 12</ComboBoxItem>
+                            </ComboBox>
+
+                            
+                            <Grid Grid.Column="3">
+                                <Button Height="50" 
+                                            Width="70" 
+                                            HorizontalAlignment="Center" 
+                                            ToolTip="Xuất file excel" 
+                                            Command="{Binding ExportToExcelCommand}"
+                                            >
+                                    <materialDesign:PackIcon Kind="TableArrowRight" Height="40" Width="40"/>
+                                </Button>
+                            </Grid>
+
+                            
+                            <DockPanel Grid.Column="1" Margin="0,0,10,0" VerticalAlignment="Center">
+                                <materialDesign:PackIcon Kind="Magnify" 
+                                     Width="24" 
+                                     Height="24" 
+                                     VerticalAlignment="Center" 
+                                     Margin="0,0,5,0" 
+                                     DockPanel.Dock="Left" />
+                                <TextBox FontSize="16"
+                                             Height="50"
+                                             materialDesign:HintAssist.Hint="Tìm kiếm nhân viên"
+                                             Style="{StaticResource MaterialDesignOutlinedTextBox}" 
+                                             Text="{Binding MonthlyFilterText, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DockPanel>
+
+                            
+                            <Grid Grid.Column="2">
+                                <Button Height="50" 
+                                            Width="70" 
+                                            HorizontalAlignment="Center" 
+                                            ToolTip="Tìm"
+                                            Command="{Binding SearchMonthlyAttendanceCommand}">
+                                    <materialDesign:PackIcon Kind="AccountSearchOutline" Height="40" Width="40"/>
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </Border>
+
+                    <DataGrid Grid.Row="1"
+                        ItemsSource="{Binding MonthlyAttendanceRecords}"
+                        AutoGenerateColumns="False"
+                        CanUserAddRows="False"
+                        HeadersVisibility="All"
+                        Padding="5">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Mã Nhân Viên"
+                            Binding="{Binding MaNhanVien, Mode=OneWay}"
+                            CanUserSort="True"
+                            Width="150" />
+                            <DataGridTextColumn Header="Họ Tên"
+                            Binding="{Binding HoTen, Mode=OneWay}"
+                            CanUserSort="True" 
+                            Width="250"/>
+                            <DataGridTextColumn Header="Chức Vụ"
+                            Binding="{Binding ChucVu, Mode=OneWay}"
+                            CanUserSort="False"
+                            Width="130"/>
+                            <DataGridTextColumn Header="Số Giờ Làm Việc"
+                            Binding="{Binding TongSoGioLamViec, Mode=OneWay, StringFormat={}{0:F2}h}"
+                            CanUserSort="True" 
+                            Width="150"/>
+                            <DataGridTextColumn Header="Lương Tạm Tính"
+                            Binding="{Binding LuongTamtinh, Mode=OneWay, StringFormat={}{0:F0}đ}"
+                            CanUserSort="True"
+                            Width="200"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

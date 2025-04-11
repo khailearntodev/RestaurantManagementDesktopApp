@@ -1,0 +1,302 @@
+﻿<UserControl x:Class="RestaurantManagement.Views.EmployeeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:vm="clr-namespace:RestaurantManagement.ViewModels"
+        d:DataContext="{d:DesignInstance Type=vm:EmployeeViewModel}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        mc:Ignorable="d"
+        d:DesignHeight="660" d:DesignWidth="1060">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1.15*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <DockPanel VerticalAlignment="Center">
+                        <materialDesign:PackIcon Kind="Magnify" 
+                                  Width="30" 
+                                  Height="30" 
+                                  HorizontalAlignment="Right"
+                                  VerticalAlignment="Center" 
+                                  Margin="10,0,0,0" />
+                        <TextBox VerticalAlignment="Center"
+                 materialDesign:HintAssist.Hint="Tìm kiếm nhân viên"
+                 Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 FontSize="15"
+                 Width="350"
+                 Height="40"
+                 Margin="0,0,0,0" />
+                    </DockPanel>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Button
+                        Height="40"
+                        Width="100"
+                        FontSize="15"
+                        materialDesign:ButtonAssist.CornerRadius="5"
+                        Style="{StaticResource MaterialDesignRaisedLightButton}"
+                        Background="#701c1c"
+                        Foreground="White"
+                        Content="Xóa"
+                        Command="{Binding DeleteEmployeeCommand}">
+                    </Button>
+                </Grid>
+                <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                    <Button
+                        Margin="5"
+                        Height="40"
+                        Width="144"
+                        Content="Chấm công"
+                        Background="#701c1c"
+                        Command="{Binding AttendanceCommand}" />
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ListView ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Họ Tên" DisplayMemberBinding="{Binding HoTen}" Width="190"/>
+                                <GridViewColumn Header="Công Việc" DisplayMemberBinding="{Binding CongViec}" Width="180"/>
+                                <GridViewColumn Header="Ngày Vào Làm" DisplayMemberBinding="{Binding NgayVaoLam}" Width="180" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="1" Margin="20">
+            <Border Background="#EEEE" CornerRadius="20"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="4.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox materialDesign:HintAssist.Hint="Họ tên"
+                         Text="{Binding SelectedEmployee.HoTen, UpdateSourceTrigger=PropertyChanged}"
+                         FontSize="16"
+                         Margin="20"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <ComboBox materialDesign:HintAssist.Hint="Chức vụ"
+                            Text="{Binding SelectedEmployee.CongViec, UpdateSourceTrigger=PropertyChanged}"
+                            FontFamily="Comfortaa"
+                                      Margin="20"
+                            FontSize="16"
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                <ComboBoxItem>
+                                    Quản lý
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    Phục vụ
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    Bếp trưởng
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    Phụ bếp
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    Order
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    Bảo vệ
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    Shipper
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    Đầu bếp
+                                </ComboBoxItem>
+                            </ComboBox>
+
+
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <ComboBox x:Name="ChucVuComboBox" materialDesign:HintAssist.Hint="Hình thức" Text="{Binding SelectedEmployee.LoaiNhanVien, UpdateSourceTrigger=PropertyChanged}"
+                              FontSize="16"
+                                      Margin="20"
+                              SelectedIndex="{Binding ChucVuSelectedIndex , Mode=TwoWay}">
+                                <ComboBoxItem>Full-time</ComboBoxItem>
+                                <ComboBoxItem>Part-time</ComboBoxItem>
+                            </ComboBox>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <TextBox materialDesign:HintAssist.Hint="Địa chỉ"
+                             Text="{Binding SelectedEmployee.Address, UpdateSourceTrigger=PropertyChanged}"
+                             FontSize="16"
+                                     Margin="20"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <TextBox materialDesign:HintAssist.Hint="SĐT"
+                             Text="{Binding SelectedEmployee.Phone, UpdateSourceTrigger=PropertyChanged}"
+                             FontSize="16"
+                                     Margin="20"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <DatePicker Grid.Column="0"
+                            SelectedDate="{Binding SelectedEmployee.DateBorn, UpdateSourceTrigger=PropertyChanged}"
+                            FontSize="14"
+                                    Margin="20"
+                            materialDesign:HintAssist.Hint="Ngày sinh"
+                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}" SelectedDateFormat="Short" />
+                        <DatePicker Grid.Column="1"
+                            SelectedDate="{Binding SelectedEmployee.NgayVaoLam, UpdateSourceTrigger=PropertyChanged}"
+                            FontSize="14"
+                                    Margin="20"
+                            materialDesign:HintAssist.Hint="Ngày vào làm"
+                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                    </Grid>
+                    
+                    <Grid Grid.Row="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <TextBox materialDesign:HintAssist.Hint="Tài khoản"
+                             Text="{Binding SelectedEmployee.TenTaiKhoan, UpdateSourceTrigger=PropertyChanged}"
+                             FontSize="16"
+                                     Margin="20"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <TextBox materialDesign:HintAssist.Hint="Mật khẩu"
+                             Text="{Binding SelectedEmployee.MatKhau, UpdateSourceTrigger=PropertyChanged}"
+                             FontSize="16"
+                                     Margin="20"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="5">
+                        <TextBox materialDesign:HintAssist.Hint="Lương Cơ bản"  
+                         FontSize="16"
+                                 Margin="20"
+                         Text="{Binding SelectedEmployee.LuongCoBan, UpdateSourceTrigger=PropertyChanged}"
+                         >
+                            <TextBox.Style>
+                                <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SelectedIndex, ElementName=ChucVuComboBox}" Value="0">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
+
+                        <TextBox materialDesign:HintAssist.Hint="Lương Theo Giờ"  
+                             FontSize="16"
+                             Text="{Binding SelectedEmployee.LuongTheoGio, UpdateSourceTrigger=PropertyChanged}"
+                             Margin="20"
+                                 >
+                            <TextBox.Style>
+                                <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SelectedIndex, ElementName=ChucVuComboBox}" Value="1">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
+                    </Grid>
+                    
+
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button 
+                        Grid.Column="0"
+                        Command="{Binding NewEmployeeCommand}"
+                        Background="#c41428"
+                        Margin="10 5 5 10"
+                        Foreground="White"
+                        FontSize="16"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Content="Tạo mới">
+                    </Button>
+                    <Button Name="btnEditStaff"
+                        Grid.Column="1"
+                        Command="{Binding EditEmployeeCommand}"
+                        Background="#1C3879"
+                        Margin="5 5 5 10"
+                        Foreground="White"
+                        FontSize="16"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Content="Sửa">
+                    </Button>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Button 
+                    Grid.Column="0"
+                    Command="{Binding AddEmployeeCommand}"
+                    Background="#1C3879"
+                    Margin="10 5 5 10"
+                    Foreground="White"
+                    FontSize="16"
+                    BorderThickness="0"
+                    Cursor="Hand"
+                    Content="Thêm">
+                    </Button>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

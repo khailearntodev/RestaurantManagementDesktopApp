@@ -1,0 +1,41 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"               
+                    xmlns:view="clr-namespace:RestaurantManagement.Views" 
+               xmlns:vm="clr-namespace:RestaurantManagement.ViewModels">
+    <DataTemplate DataType="{x:Type vm:AddIngredientViewModel}">
+        <view:AddIngredientsView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:AttendanceViewModel}">
+        <view:AttendanceView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:EditIngredientViewModel}">
+        <view:EditIngredientView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:BillHistoryViewModel}">
+        <view:BillHistory/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:StatisticsViewModel}">
+        <view:StatisticsView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:StorageViewModel}">
+        <view:StorageView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:TableStateViewModel}">
+        <view:TableState/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:FoodMenuViewModel}">
+        <view:FoodMenuView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:KitchenViewModel}">
+        <view:Kitchen/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:MenuViewModel}">
+        <view:Menu/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:EmployeeViewModel}">
+        <view:EmployeeView/>
+    </DataTemplate>
+
+
+
+</ResourceDictionary>
